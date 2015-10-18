@@ -1,0 +1,586 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"to",
+				"toString"
+			],
+			[
+				"logEn",
+				"logEntry2"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"_",
+				"_logName"
+			],
+			[
+				"my",
+				"myCall"
+			],
+			[
+				"Log",
+				"logEntry"
+			],
+			[
+				"show",
+				"showLog"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"str",
+				"stringifyEntry"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "Remote:   origin @ https://github.com/komacke/HamLog.git\nLocal:    master ~\\Dropbox\\davek\\Dev\\HamLog\nHead:     94b74c4 Initial commit of HamLog. Mostly this is the google syncfs-editor example with only the very first changes to HamLog.\n\n\nNothing to commit (working directory clean)\n\n# Movement:\n#    r = refresh status\n#    1-5 = jump to section\n#    n = next item, N = next section\n#    p = previous item, P = previous section\n#\n# Staging:\n#    s = stage file/section, S = stage all unstaged files\n#    ctrl+shift+s = stage all unstaged and untracked files\n#    u = unstage file/section, U = unstage all files\n#    backspace = discard file/section, shift+backspace = discard everything\n#\n# Commit:\n#    c = commit, C = commit -a (add unstaged)\n#    ctrl+shift+c = commit --amend (amend previous commit)\n#\n# Other:\n#    i = ignore file, I = ignore pattern\n#    enter = open file\n#    d = view diff\n#\n# Stashes:\n#    a = apply stash, A = pop stash\n#    z = create stash, Z = create stash including untracked files\n#    backspace = discard stash",
+			"settings":
+			{
+				"buffer_size": 1044,
+				"line_ending": "Windows",
+				"name": "*git-status*: HamLog",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"file": "main.html",
+			"settings":
+			{
+				"buffer_size": 1091,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/main.js",
+			"settings":
+			{
+				"buffer_size": 2273,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/log-entry.js",
+			"settings":
+			{
+				"buffer_size": 145,
+				"line_ending": "Windows",
+				"name": "LogEntry = function() {"
+			}
+		},
+		{
+			"contents": "var Entry = function (entry) {\n	this.entry = entry;\n};\n\nObject.defineProperties(Entry.prototype, {\n\n		entry: {\n			set: function(e) {\n				var eo;\n				if (typeof e === \"string\")\n					eo = JSON.parse(e);\n				else if (e instanceof Entry)\n					eo = e;\n				\n				for (var key in eo) {\n					if (e.hasOwnProperty(key))\n						this[key] = eo[key];\n				}\n			},\n			get: function() { return this; }\n		},\n\n		myCall: {\n			set: function(c) { this._myCall = c.trim().toUpperCase(); },\n			get: function() { return this._myCall; }\n		},\n\n		contactCall: {\n			set: function(c) { this._contactCall = c.trim().toUpperCase(); },\n			get: function() { return this._contactCall; }\n		},\n\n		logName: {\n			set: function(ln) { this._logName = ln.trim(); },\n			get: function() { return this._logName; }\n		},\n\n	});\n\nEntry.prototype.toString = function() {\n	return JSON.stringify(this);\n}\n",
+			"file": "js/entry.js",
+			"file_size": 889,
+			"file_write_time": 130895135834803687,
+			"settings":
+			{
+				"buffer_size": 853,
+				"line_ending": "Windows",
+				"name": "Entry = function() {"
+			}
+		},
+		{
+			"contents": "Searching 10 files for \"info\"\n\nC:\\Users\\davek_000\\Dropbox\\davek\\Dev\\HamLog\\main.html:\n   24  \n   25    <div id=\"log\"></div>\n   26:   <div id=\"info\" class=\"info\" class=\"hide\"></div>\n   27    <script src=\"js/main.js\"></script>\n   28  </body>\n\nC:\\Users\\davek_000\\Dropbox\\davek\\Dev\\HamLog\\css\\editor.css:\n    9  }\n   10  \n   11: .info {\n   12    color: #930;\n   13    font-size: 12px;\n\nC:\\Users\\davek_000\\Dropbox\\davek\\Dev\\HamLog\\js\\filer.js:\n   41            function(detail) {\n   42              if (detail.direction == 'remote_to_local') {\n   43:               info('File ' + detail.fileEntry.fullPath +\n   44                     ' is ' + detail.action + ' by background sync.');\n   45                if (this.editor.getCurrentPath() == detail.fileEntry.fullPath &&\n   ..\n  190      chrome.syncFileSystem.getUsageAndQuota(\n  191        this.filesystem,\n  192:       function(info) {\n  193          if (chrome.runtime.lastError) {\n  194            error('getUsageAndQuota: ' + chrome.runtime.lastError.message);\n  ...\n  196          }\n  197          $('#filer-usage').innerText =\n  198:             'Usage:' + this.formatSize(info.usageBytes);\n  199        }.bind(this));\n  200      return;\n  201    }\n  202:   webkitStorageInfo.queryUsageAndQuota(\n  203        this.filesystem,\n  204        function(usage, quota) {\n\nC:\\Users\\davek_000\\Dropbox\\davek\\Dev\\HamLog\\js\\utils.js:\n   41  }\n   42  \n   43: function info(msg) {\n   44:   console.log('INFO: ', arguments);\n   45:   var e = document.getElementById('info');\n   46    e.innerText = msg;\n   47    e.classList.remove('hide');\n\n10 matches across 4 files\n",
+			"settings":
+			{
+				"buffer_size": 1603,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "js/filer.js",
+			"settings":
+			{
+				"buffer_size": 8132,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 311.0,
+		"last_filter": "git:in",
+		"selected_items":
+		[
+			[
+				"git:in",
+				"Git: Init"
+			],
+			[
+				"git:st",
+				"Git: Status"
+			],
+			[
+				"git:f",
+				"Git: Fetch"
+			],
+			[
+				"git:pu",
+				"Git: Pull"
+			],
+			[
+				"git:",
+				"Git: Checkout"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"git ",
+			"Git: Status",
+			"Git:",
+			"git: status",
+			"git:status",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/assets",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/css",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/img",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/js"
+	],
+	"file_history":
+	[
+		"/C/Users/davek_000/AppData/Roaming/Sublime Text 3/Packages/User/SublimeGit.sublime-settings",
+		"/C/Users/davek_000/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/davek_000/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/davek_000/AppData/Roaming/Sublime Text 3/Packages/User/Package Control.sublime-settings"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"s",
+			"newValue",
+			"info",
+			"helloWorldSyncID"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1044,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								373,
+								373
+							]
+						],
+						"settings":
+						{
+							"__vi_external_disable": true,
+							"draw_white_space": "none",
+							"git_repo": "C:\\Users\\davek_000\\Dropbox\\davek\\Dev\\HamLog",
+							"git_status": true,
+							"git_view": "status",
+							"syntax": "Packages/SublimeGit/syntax/SublimeGit Status.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "main.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1091,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								379,
+								379
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "js/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2273,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1078,
+								1078
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "js/log-entry.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 145,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "LogEntry = function() {",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "js/entry.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 853,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								251,
+								251
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Entry = function() {",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1603,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										142,
+										146
+									],
+									[
+										155,
+										159
+									],
+									[
+										326,
+										330
+									],
+									[
+										560,
+										564
+									],
+									[
+										874,
+										878
+									],
+									[
+										1124,
+										1128
+									],
+									[
+										1222,
+										1226
+									],
+									[
+										1406,
+										1410
+									],
+									[
+										1440,
+										1444
+									],
+									[
+										1503,
+										1507
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								876,
+								876
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "js/filer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8132,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6254,
+								6254
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git-commit":
+	{
+		"height": 25.0
+	},
+	"output.git-fetch":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "",
+	"project": "HamLog.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 188.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

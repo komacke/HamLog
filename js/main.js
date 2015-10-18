@@ -1,11 +1,12 @@
+'use strict';
+
 var supportsSyncFileSystem = chrome && chrome.syncFileSystem;
+
+var currLogName = "Full Log";
 
 document.addEventListener(
   'DOMContentLoaded',
   function() {
-    $('#fs-syncable').addEventListener('click', openSyncableFileSystem);
-    $('#fs-temporary').addEventListener('click', openTemporaryFileSystem);
-
     if (supportsSyncFileSystem)
       openSyncableFileSystem();
     else
@@ -19,6 +20,10 @@ function onFileSystemOpened(fs, isSyncable) {
   var editor = new Editor(fs, 'editor');
   var filer = new Filer(fs, 'filer', editor, isSyncable);
   editor.filer = filer;
+
+  var logEntries = new LogEntries();
+  var entryForm = new EntryForm(fs, 'entryFormContainer', filer, logEntries);
+  showLog('currentLog');
 }
 
 function openTemporaryFileSystem() {
@@ -28,6 +33,10 @@ function openTemporaryFileSystem() {
   webkitRequestFileSystem(TEMPORARY, 1024,
                           onFileSystemOpened,
                           error.bind(null, 'requestFileSystem'));
+}
+
+function showLog(container) {
+  document.getElementById(container).innerHTML = "Current log: " + currLogName;
 }
 
 function openSyncableFileSystem() {

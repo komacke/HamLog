@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <head>
   <link rel="stylesheet" href="css/editor.css" type="text/css" />
+  <link rel="stylesheet" href="css/entry-form.css" type="text/css" />
+
   <script type="text/javascript" src="js/utils.js"></script>
   <script type="text/javascript" src="js/filer.js"></script>
   <script type="text/javascript" src="js/editor.js"></script>
+  <script type="text/javascript" src="js/log-entries.js"></script>
+  <script type="text/javascript" src="js/entry.js"></script>
+  <script type="text/javascript" src="js/entry-form.js"></script>
   <title>Cloud editor (SyncFileSystem sample)</title>
 </head>
 <body>
+  <div id="currentLog"></div>
+  <div id="entryFormContainer"></div>
   <div id="fs-selector">
     <div id="conflict-policy" class="hide">
       <input id="auto-conflict-resolve" type="checkbox" checked>
