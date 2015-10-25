@@ -4,6 +4,86 @@
 		"selected_items":
 		[
 			[
+				"l",
+				"length"
+			],
+			[
+				"lg",
+				"logEntries"
+			],
+			[
+				"co",
+				"console"
+			],
+			[
+				"p",
+				"parse"
+			],
+			[
+				"log",
+				"logEntries"
+			],
+			[
+				"tex",
+				"textContent"
+			],
+			[
+				"whatwg",
+				"whatwgRNG"
+			],
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"bui",
+				"buildRow"
+			],
+			[
+				"in",
+				"innerText"
+			],
+			[
+				"create",
+				"createElement"
+			],
+			[
+				"Lo",
+				"logEntries"
+			],
+			[
+				"_",
+				"_startTime"
+			],
+			[
+				"input",
+				"inputRow"
+			],
+			[
+				"Entry",
+				"EntryForm"
+			],
+			[
+				"save",
+				"saveEntry"
+			],
+			[
+				"c",
+				"createElement"
+			],
+			[
+				"build",
+				"buildInput"
+			],
+			[
+				"desc",
+				"description"
+			],
+			[
+				"entry",
+				"entryFormContainer"
+			],
+			[
 				"to",
 				"toString"
 			],
@@ -14,10 +94,6 @@
 			[
 				"proto",
 				"prototype"
-			],
-			[
-				"_",
-				"_logName"
 			],
 			[
 				"my",
@@ -44,10 +120,10 @@
 	"buffers":
 	[
 		{
-			"contents": "Remote:   origin @ https://github.com/komacke/HamLog.git\nLocal:    master ~\\Dropbox\\davek\\Dev\\HamLog\nHead:     94b74c4 Initial commit of HamLog. Mostly this is the google syncfs-editor example with only the very first changes to HamLog.\n\n\nNothing to commit (working directory clean)\n\n# Movement:\n#    r = refresh status\n#    1-5 = jump to section\n#    n = next item, N = next section\n#    p = previous item, P = previous section\n#\n# Staging:\n#    s = stage file/section, S = stage all unstaged files\n#    ctrl+shift+s = stage all unstaged and untracked files\n#    u = unstage file/section, U = unstage all files\n#    backspace = discard file/section, shift+backspace = discard everything\n#\n# Commit:\n#    c = commit, C = commit -a (add unstaged)\n#    ctrl+shift+c = commit --amend (amend previous commit)\n#\n# Other:\n#    i = ignore file, I = ignore pattern\n#    enter = open file\n#    d = view diff\n#\n# Stashes:\n#    a = apply stash, A = pop stash\n#    z = create stash, Z = create stash including untracked files\n#    backspace = discard stash",
+			"contents": "Remote:   origin @ https://github.com/komacke/HamLog.git\nLocal:    master ~\\Dropbox\\davek\\Dev\\HamLog\nHead:     ca473eb First protoype with simple log into and table display. Still has editor/filer elements for studying how this all works.\n\n\nUntracked files:\n	js/utils/\n\nChanges:\n	Modified   HamLog.sublime-workspace\n	Modified   css/entry-form.css\n	Modified   js/entry-form.js\n	Modified   js/entry.js\n	Modified   js/filer.js\n	Modified   js/log-entries.js\n	Modified   js/main.js\n	Modified   main.html\n\n\n# Movement:\n#    r = refresh status\n#    1-5 = jump to section\n#    n = next item, N = next section\n#    p = previous item, P = previous section\n#\n# Staging:\n#    s = stage file/section, S = stage all unstaged files\n#    ctrl+shift+s = stage all unstaged and untracked files\n#    u = unstage file/section, U = unstage all files\n#    backspace = discard file/section, shift+backspace = discard everything\n#\n# Commit:\n#    c = commit, C = commit -a (add unstaged)\n#    ctrl+shift+c = commit --amend (amend previous commit)\n#\n# Other:\n#    i = ignore file, I = ignore pattern\n#    enter = open file\n#    d = view diff\n#\n# Stashes:\n#    a = apply stash, A = pop stash\n#    z = create stash, Z = create stash including untracked files\n#    backspace = discard stash",
 			"settings":
 			{
-				"buffer_size": 1044,
+				"buffer_size": 1261,
 				"line_ending": "Windows",
 				"name": "*git-status*: HamLog",
 				"read_only": true,
@@ -58,7 +134,15 @@
 			"file": "main.html",
 			"settings":
 			{
-				"buffer_size": 1091,
+				"buffer_size": 1847,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/utils/dynatable/jquery.dynatable.js",
+			"settings":
+			{
+				"buffer_size": 58666,
 				"line_ending": "Unix"
 			}
 		},
@@ -66,46 +150,49 @@
 			"file": "js/main.js",
 			"settings":
 			{
-				"buffer_size": 2273,
+				"buffer_size": 2251,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "js/log-entry.js",
+			"file": "js/entry-form.js",
 			"settings":
 			{
-				"buffer_size": 145,
+				"buffer_size": 2861,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "js/log-entries.js",
+			"settings":
+			{
+				"buffer_size": 944,
 				"line_ending": "Windows",
 				"name": "LogEntry = function() {"
 			}
 		},
 		{
-			"contents": "var Entry = function (entry) {\n	this.entry = entry;\n};\n\nObject.defineProperties(Entry.prototype, {\n\n		entry: {\n			set: function(e) {\n				var eo;\n				if (typeof e === \"string\")\n					eo = JSON.parse(e);\n				else if (e instanceof Entry)\n					eo = e;\n				\n				for (var key in eo) {\n					if (e.hasOwnProperty(key))\n						this[key] = eo[key];\n				}\n			},\n			get: function() { return this; }\n		},\n\n		myCall: {\n			set: function(c) { this._myCall = c.trim().toUpperCase(); },\n			get: function() { return this._myCall; }\n		},\n\n		contactCall: {\n			set: function(c) { this._contactCall = c.trim().toUpperCase(); },\n			get: function() { return this._contactCall; }\n		},\n\n		logName: {\n			set: function(ln) { this._logName = ln.trim(); },\n			get: function() { return this._logName; }\n		},\n\n	});\n\nEntry.prototype.toString = function() {\n	return JSON.stringify(this);\n}\n",
 			"file": "js/entry.js",
-			"file_size": 889,
-			"file_write_time": 130895135834803687,
 			"settings":
 			{
-				"buffer_size": 853,
+				"buffer_size": 1832,
 				"line_ending": "Windows",
 				"name": "Entry = function() {"
 			}
 		},
 		{
-			"contents": "Searching 10 files for \"info\"\n\nC:\\Users\\davek_000\\Dropbox\\davek\\Dev\\HamLog\\main.html:\n   24  \n   25    <div id=\"log\"></div>\n   26:   <div id=\"info\" class=\"info\" class=\"hide\"></div>\n   27    <script src=\"js/main.js\"></script>\n   28  </body>\n\nC:\\Users\\davek_000\\Dropbox\\davek\\Dev\\HamLog\\css\\editor.css:\n    9  }\n   10  \n   11: .info {\n   12    color: #930;\n   13    font-size: 12px;\n\nC:\\Users\\davek_000\\Dropbox\\davek\\Dev\\HamLog\\js\\filer.js:\n   41            function(detail) {\n   42              if (detail.direction == 'remote_to_local') {\n   43:               info('File ' + detail.fileEntry.fullPath +\n   44                     ' is ' + detail.action + ' by background sync.');\n   45                if (this.editor.getCurrentPath() == detail.fileEntry.fullPath &&\n   ..\n  190      chrome.syncFileSystem.getUsageAndQuota(\n  191        this.filesystem,\n  192:       function(info) {\n  193          if (chrome.runtime.lastError) {\n  194            error('getUsageAndQuota: ' + chrome.runtime.lastError.message);\n  ...\n  196          }\n  197          $('#filer-usage').innerText =\n  198:             'Usage:' + this.formatSize(info.usageBytes);\n  199        }.bind(this));\n  200      return;\n  201    }\n  202:   webkitStorageInfo.queryUsageAndQuota(\n  203        this.filesystem,\n  204        function(usage, quota) {\n\nC:\\Users\\davek_000\\Dropbox\\davek\\Dev\\HamLog\\js\\utils.js:\n   41  }\n   42  \n   43: function info(msg) {\n   44:   console.log('INFO: ', arguments);\n   45:   var e = document.getElementById('info');\n   46    e.innerText = msg;\n   47    e.classList.remove('hide');\n\n10 matches across 4 files\n",
+			"file": "js/editor.js",
 			"settings":
 			{
-				"buffer_size": 1603,
-				"line_ending": "Windows",
-				"name": "Find Results",
-				"scratch": true
+				"buffer_size": 6830,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "js/filer.js",
 			"settings":
 			{
-				"buffer_size": 8132,
+				"buffer_size": 8901,
 				"line_ending": "Unix"
 			}
 		}
@@ -117,10 +204,26 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 311.0,
-		"last_filter": "git:in",
+		"height": 58.0,
+		"last_filter": ":wq",
 		"selected_items":
 		[
+			[
+				":wq",
+				"BracketHighlighter: Swap Quotes"
+			],
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: instal",
+				"Package Control: Install Package"
+			],
 			[
 				"git:in",
 				"Git: Init"
@@ -146,7 +249,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 400.0
+		"width": 464.0
 	},
 	"console":
 	{
@@ -175,19 +278,30 @@
 		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog",
 		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/assets",
 		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/css",
-		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/img",
-		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/js"
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/js",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/js/utils",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/js/utils/dynatable"
 	],
 	"file_history":
 	[
-		"/C/Users/davek_000/AppData/Roaming/Sublime Text 3/Packages/User/SublimeGit.sublime-settings",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/js/utils/dynatable/jquery.dynatable.css",
 		"/C/Users/davek_000/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/C/Users/davek_000/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/davek_000/AppData/Roaming/Sublime Text 3/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/js/utils/dynatable/jquery.dynatable.js",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/js/utils.js",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/HamLog.sublime-project",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/js/utils/alea.js",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/js/utils/uuid.js",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/css/entry-form.css",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/manifest.json",
+		"/C/Users/davek_000/Dropbox/davek/Dev/HamLog/img/icon-16.png",
+		"/C/Users/davek_000/AppData/Roaming/Sublime Text 3/Packages/User/SublimeGit.sublime-settings",
 		"/C/Users/davek_000/AppData/Roaming/Sublime Text 3/Packages/User/Package Control.sublime-settings"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 43.0
 	},
 	"find_in_files":
 	{
@@ -202,6 +316,30 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Orig",
+			"load",
+			"logEntries",
+			"console",
+			"pushS",
+			"skipPush",
+			"pushStat",
+			"history.pushstate",
+			"/",
+			"$(",
+			"buildRow",
+			"Filer",
+			"vintage",
+			"logEntri",
+			"_rng",
+			"getelemen",
+			"log",
+			"Log",
+			"];\n",
+			"logentry",
+			"blob",
+			"))\n",
+			"getCurrentPath",
+			"showDialog",
 			"s",
 			"newValue",
 			"info",
@@ -213,6 +351,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"logEntries",
+			"LogEntries"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -223,7 +363,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -231,15 +371,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1044,
+						"buffer_size": 1261,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								373,
-								373
+								241,
+								241
 							]
 						],
 						"settings":
@@ -257,7 +397,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -266,50 +406,90 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1091,
+						"buffer_size": 1847,
 						"regions":
 						{
+							"bookmark_y":
+							{
+								"flags": 144,
+								"regions":
+								[
+									[
+										1162,
+										1162
+									]
+								]
+							}
 						},
 						"selection":
 						[
 							[
-								379,
-								379
+								314,
+								314
 							]
 						],
 						"settings":
 						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
 							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "js/main.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2273,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1078,
-								1078
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -321,12 +501,278 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "js/log-entry.js",
+					"buffer": 2,
+					"file": "js/utils/dynatable/jquery.dynatable.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 145,
+						"buffer_size": 58666,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18716,
+								18720
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 11009.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "js/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2251,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								50,
+								50
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "js/entry-form.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2861,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2042,
+								2042
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_name": "",
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": -0.0,
+						"translation.y": 839.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "js/log-entries.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 944,
 						"regions":
 						{
 						},
@@ -339,36 +785,66 @@
 						],
 						"settings":
 						{
+							"BracketHighlighterBusy": false,
 							"auto_name": "LogEntry = function() {",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "js/entry.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 853,
-						"regions":
-						{
-						},
-						"selection":
-						[
+							"bh_regions":
 							[
-								251,
-								251
-							]
-						],
-						"settings":
-						{
-							"auto_name": "Entry = function() {",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -379,112 +855,266 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
+					"file": "js/entry.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1603,
+						"buffer_size": 1832,
 						"regions":
 						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										142,
-										146
-									],
-									[
-										155,
-										159
-									],
-									[
-										326,
-										330
-									],
-									[
-										560,
-										564
-									],
-									[
-										874,
-										878
-									],
-									[
-										1124,
-										1128
-									],
-									[
-										1222,
-										1226
-									],
-									[
-										1406,
-										1410
-									],
-									[
-										1440,
-										1444
-									],
-									[
-										1503,
-										1507
-									]
-								],
-								"scope": ""
-							}
 						},
 						"selection":
 						[
 							[
-								876,
-								876
+								853,
+								1024
 							]
 						],
 						"settings":
 						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 1,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+							"BracketHighlighterBusy": false,
+							"auto_name": "Entry = function() {",
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "js/filer.js",
+					"buffer": 7,
+					"file": "js/editor.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8132,
+						"buffer_size": 6830,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6254,
-								6254
+								3045,
+								3045
 							]
 						],
 						"settings":
 						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 853.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "js/filer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8901,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6682,
+								6682
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2902.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -495,7 +1125,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"input":
 	{
@@ -540,7 +1170,7 @@
 	"project": "HamLog.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -554,21 +1184,21 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
-		"height": 0.0,
+		"height": 392.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 392.0
 	},
 	"selected_group": 0,
 	"settings":
@@ -578,7 +1208,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 188.0,
+	"side_bar_width": 258.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

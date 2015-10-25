@@ -7,11 +7,11 @@ var LogEntries = function(entries) {
     LogEntries.injectClassMethods( logEntries );
 
     // Return the new collection object.
-    return( logEntries );
+    return logEntries ;
 }
 
 // Define the static methods.
-LogEntries.injectClassMethods = function( logEntries ){
+LogEntries.injectClassMethods = function( logEntries ) {
 
     // Loop over all the prototype methods and add them
     // to the new collection.
@@ -28,7 +28,7 @@ LogEntries.injectClassMethods = function( logEntries ){
     }
 
     // Return the updated collection.
-    return( logEntries );
+    return logEntries ;
 
 };
 
@@ -36,4 +36,5 @@ LogEntries.prototype = {
 	toString: function() {
 		return JSON.stringify(this);
 	},
+
 };

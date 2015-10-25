@@ -1,8 +1,11 @@
-var EntryForm = function(filesystem, container, filer, logEntries) {
+var EntryForm = function(filesystem, container, logFiler, logTable) {
+	this.currLogName = "Full Log";
+
 	this.filesystem = filesystem;
 	this.container = document.getElementById(container);
- 	this.filer = filer;
-	this.logEntries = logEntries;
+ 	this.logFiler = logFiler;
+	this.logTable = logTable;
+	this.entry = new Entry;
 
 	this.table = createElement('table', {class: 'entryForm'});
 	this.table.appendChild(this.buildHeaders());
@@ -10,21 +13,21 @@ var EntryForm = function(filesystem, container, filer, logEntries) {
 	this.table.appendChild(this.inputRow);
 
 	var button = createElement('button', {id: 'saveEntry', innerText: "Save"});
-    this.saveEntry = function() {
-    	console.log("save was clicked");
- 	};
 	button.addEventListener('click', this.save.bind(this));
 
 	this.container.appendChild(this.table);
 	this.container.appendChild(button);
+
+	this.setListeners();
 }
 
 EntryForm.prototype = {
 	buildHeaders: function() {
 		var header = createElement('tr');
 
-		for (var key in Entry.prototype.niceNames) {
-			header.appendChild(createElement('th', {innerText: Entry.prototype.niceNames[key]}));
+		for (var key in Entry.prototype.structure) {
+			if (Entry.prototype.structure[key].visible == true)
+				header.appendChild(createElement('th', {innerText: Entry.prototype.structure[key].niceName}));
 		}
 
 		return header;
@@ -33,24 +36,41 @@ EntryForm.prototype = {
 	buildInput: function() {
 		var row = createElement('tr');
 
-		for (var key in Entry.prototype.niceNames) {
-			row.appendChild(createElement('td')).appendChild(createElement('input', {type: "text", id: key}));
+		for (var key in Entry.prototype.structure) {
+			if (Entry.prototype.structure[key].visible == true) {
+				var input = createElement('input', {type: "text", id: key});
+				row.appendChild(createElement('td')).appendChild(input);
+			}
 		}
 
 		return row;
 	},
 
-	buildRow: function(entry) {
-		var row = createElement('tr');
+	setListeners: function() {
+		for (var key in Entry.prototype.structure) {
+			if (Entry.prototype.structure[key].visible == true) {
+				document.getElementById(key).addEventListener('blur', function(key, ev) {
+					this.entry[key] = ev.target.value;
+					ev.target.value = this.entry[key];
+		  		}.bind(this, key));
+		  	}
+		 }
+		 return;
+	},
 
-		for (var key in Entry.prototype.niceNames) {
-			row.appendChild(createElement('td')).appendChild(createElement('span', {id: key, innerText: entry[key]}));
+	clearInput: function() {
+		for (var key in Entry.prototype.structure) {
+			if (Entry.prototype.structure[key].visible == true)
+				document.getElementById(key).value = '';
 		}
 
-		return row;
+		this.entry = new Entry;
+
 	},
 
 	getEntry: function() {
+		return this.entry;
+
 		currEntry = new Entry();
 
 		var node = this.inputRow.firstChild;
@@ -59,23 +79,22 @@ EntryForm.prototype = {
 			node = node.nextSibling;
 		}
 
-		currEntry.logName = currLogName;
-
-		console.log(currEntry);
-
 		return currEntry;
 	},
 
-	onSave: function(entry, size) {
+	onSave: function(entry, size, currEntry) {
 		log('File saved: ' + size + ' bytes');
-		this.filer.reload();
+		currEntry.sync = 'pending';
+		this.logTable.push(currEntry);
+		this.logTable.refresh();
+		this.clearInput();
 	},
 
 	save: function() {
+//  for (var i=0; i<1000; i++) {
+    
 		this.currEntry = this.getEntry();
-		this.logEntries.push(this.currEntry);
-		this.table.appendChild(this.buildRow(this.currEntry));
-
+		this.currEntry.logName = this.currLogName;
 	  	var path = this.currEntry.makeFilename();
 	  	log('Saving to:' + path);
 
@@ -91,9 +110,10 @@ EntryForm.prototype = {
 		        var size = content.length;
 		        writer.write(blob);
 		        writer.onerror = error;
-		        writer.onwriteend = this.onSave.bind(this, entry, size);
+		        writer.onwriteend = this.onSave.bind(this, entry, size, this.currEntry);
 		      }.bind(this);
 		    }.bind(this));
 		  }.bind(this));
+  //}
 	},
 }

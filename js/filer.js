@@ -1,6 +1,7 @@
-Filer = function(filesystem, container, editor, isSyncable) {
+Filer = function(filesystem, container, editor, logEntries, isSyncable) {
   this.filesystem = filesystem;
   this.editor = editor;
+  this.logEntries = logEntries;
   this.isSyncable = isSyncable;
 
   // Directory path => ul node mapping.
@@ -76,7 +77,6 @@ Filer.prototype.didReadEntries = function(dir, reader, entries) {
     node.fetching = false;
     return;
   }
-
   hide('#filer-empty-label');
 
   for (var i = 0; i < entries.length; ++i) {
@@ -113,6 +113,8 @@ Filer.prototype.addEntry = function(parentNode, entry, file) {
   a.appendChild(nameNode);
   node.appendChild(a);
   li.appendChild(node);
+
+  this.open(nameNode.textContent)
 
   if (this.isSyncable && chrome.syncFileSystem.getFileStatus) {
     chrome.syncFileSystem.getFileStatus(entry, function(status) {
@@ -184,6 +186,36 @@ Filer.prototype.addEntry = function(parentNode, entry, file) {
 
   parentNode.appendChild(li);
 };
+
+Filer.prototype.open = function(path) {
+  this.filesystem.root.getFile(
+      path, {},
+      this.load.bind(this),
+      error.bind(null, "getFile " + path));
+};
+
+Filer.prototype.load = function(entry) {
+  entry.file(function(file) {
+    var reader = new FileReader();
+    reader.readAsText(file, "utf-8");
+    reader.onload = function(ev) {
+      if (this.logEntries.length < 20) {
+        console.log(ev.target.result);
+ //       this.logEntries.push(new Entry(ev.target.result));
+//       jQuery('#logList').dynatable().data('dynatable').settings.dataset.originalRecords.push(new Entry(ev.target.result));
+ //      jQuery('#logList').dynatable().data('dynatable').records.resetOriginal();
+      }
+
+if (this.logEntries.length == 9 ) {
+    console.log(this.logEntries);
+    console.log(this.logEntries.length);
+ 
+ }
+
+    }.bind(this);
+  }.bind(this), error);
+};
+
 
 Filer.prototype.showUsage = function() {
   if (this.isSyncable && chrome && chrome.syncFileSystem) {

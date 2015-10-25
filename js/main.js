@@ -2,8 +2,6 @@
 
 var supportsSyncFileSystem = chrome && chrome.syncFileSystem;
 
-var currLogName = "Full Log";
-
 document.addEventListener(
   'DOMContentLoaded',
   function() {
@@ -17,13 +15,12 @@ document.addEventListener(
 function onFileSystemOpened(fs, isSyncable) {
   log('Got Syncable FileSystem.');
   console.log('Got FileSystem:' + fs.name);
-  var editor = new Editor(fs, 'editor');
-  var filer = new Filer(fs, 'filer', editor, isSyncable);
-  editor.filer = filer;
 
-  var logEntries = new LogEntries();
-  var entryForm = new EntryForm(fs, 'entryFormContainer', filer, logEntries);
-  showLog('currentLog');
+  var logTable = new LogTable('logListContainer');
+  var logFiler = new LogFiler(fs, logTable, isSyncable);
+  var entryForm = new EntryForm(fs, 'entryFormContainer', logFiler, logTable);
+
+  showLog('currentLog', entryForm.currLogName);
 }
 
 function openTemporaryFileSystem() {
@@ -35,7 +32,7 @@ function openTemporaryFileSystem() {
                           error.bind(null, 'requestFileSystem'));
 }
 
-function showLog(container) {
+function showLog(container, currLogName) {
   document.getElementById(container).innerHTML = "Current log: " + currLogName;
 }
 
