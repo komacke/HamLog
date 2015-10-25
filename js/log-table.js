@@ -20,7 +20,27 @@ var LogTable = function(container) {
 	});
 
 	jQuery('#'+this.tableId).dynatable().on('click', 'tr', function(ev) {
-		console.log(ev);
+		var evtUuid;
+		for (var i=0 ; i<ev.currentTarget.childNodes.length; i++) {
+			var testUuid = ev.currentTarget.childNodes[i].innerText.match(/([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})/);
+			// do some error checking if not found?
+			if (testUuid != null) {
+				evtUuid = testUuid[1];
+				break;
+			}
+		}
+
+		var entry;
+		for (var i=0; i<this.logEntries.length; i++) {
+			if (this.logEntries[i].uuid == evtUuid) {
+				entry = this.logEntries[i];
+				break;
+			}
+		}
+
+		// TODO: put this guy into the entry form for editing; don't forgot now editing needs save new, overwrite, maybe delete?
+		console.log(entry);
+
 	}.bind(this));
 
 
