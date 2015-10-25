@@ -6,3 +6,8 @@
 #logList th.uuid, #logList th.logName {
 	display: none;
 }
+
+#logListContainer {
+	overflow-y: scroll;
+	height: 450px;
+}

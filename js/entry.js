@@ -7,7 +7,7 @@ Entry.prototype = {
 		sync: {
 			niceName: "Sync",
 			visible: false,
-			stringify: true,
+			stringify: false,
 		},
 		myCall: {
 			niceName: "My Call",
@@ -115,6 +115,7 @@ Entry.prototype = {
 	makeFilename: function() {
 		return this.logName + ":" + this.uuid + ".txt";
 	},
+
 };
 
 Object.defineProperties(Entry.prototype, {

@@ -13,10 +13,13 @@ var LogFiler = function(filesystem, logTable, isSyncable) {
 					if (detail.direction == 'remote_to_local') {
 						info('File ' + detail.fileEntry.fullPath + ' is ' 
 							+ detail.action + ' by background sync.');
-						if (detail.action == 'deleted')
+						if (detail.action == 'deleted') {
 							this.removeEntry(detail.fileEntry.fullPath);
-						else
+						} else if (detail.action == 'updated') {
+							this.updateEntry(detail.fileEntry.fullPath);
+						} else {
 						    this.list(this.filesystem.root);
+						}
 					}
 					if (detail.direction == 'local_to_remote') {
 						info('File ' + detail.fileEntry.fullPath + ' is ' 
@@ -126,6 +129,31 @@ LogFiler.prototype = {
 			log("Entry: " + fileUuid[1] +" removed as file but no log entry found.");
 		}
 
+	},
+
+	updateEntry: function(fullPath) {
+		var fileUuid = fullPath.match(/([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})/);
+
+		if (fileUuid == null) {
+			log("Entry: " + fileUuid[1] +" changed on server but not file not found here.");
+			return false;
+		}
+
+		var found = false;
+		for (var i=0; i<this.logTable.logEntries.length; i++) {
+			if (this.logTable.logEntries[i].uuid == fileUuid[1]) {
+				this.logTable.logEntries.splice(i,1);
+				found = true;
+				break;
+			}
+		}
+
+		if (found) {
+			log("Changed entry: " + fileUuid[1]);
+		    this.list(this.filesystem.root);
+		} else {
+			log("Entry: " + fileUuid[1] +" changed as file but no log entry found.");
+		}
 	},
 
 	syncedEntry: function(fullPath) {

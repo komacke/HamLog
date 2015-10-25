@@ -91,9 +91,10 @@ EntryForm.prototype = {
 	},
 
 	save: function() {
-//  for (var i=0; i<1000; i++) {
+//  for (var i=0; i<100; i++) {
     
 		this.currEntry = this.getEntry();
+//	this.currEntry.uuid = uuid.v4();
 		this.currEntry.logName = this.currLogName;
 	  	var path = this.currEntry.makeFilename();
 	  	log('Saving to:' + path);
@@ -114,6 +115,6 @@ EntryForm.prototype = {
 		      }.bind(this);
 		    }.bind(this));
 		  }.bind(this));
-  //}
+//  }
 	},
 }
