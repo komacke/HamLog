@@ -20,22 +20,25 @@
   <title>Ham Log</title>
 </head>
 <body>
-  <div id="currentLog"></div>
-  <div id="entryFormContainer"></div>
-  <div id="logListContainer"></div>
-  <div id="fs-selector">
-    <div id="conflict-policy" class="hide">
-      <input id="auto-conflict-resolve" type="checkbox" checked>
-      Resolves Conflicts Automatically
-      </input>
-    </div>
-    <button id="fs-syncable" class="fs-button">Syncable</button>
-    <button id="fs-temporary" class="fs-button">Temporary</button>
+  <div id="header">
+    <div id="currentLog"></div>
+    <div id="entryFormContainer"></div>
   </div>
+  <div id="logListContainer"></div>
+  <div id="footer">
+    <div id="fs-selector">
+      <div id="conflict-policy" class="hide">
+        <input id="auto-conflict-resolve" type="checkbox" checked>
+        Resolves Conflicts Automatically
+        </input>
+      </div>
+      <button id="fs-online" class="fs-button selected">Uninitialized</button>
+    </div>
 
-  <div id="error" class="error" class="hide"></div>
+    <div id="error" class="error" class="hide"></div>
 
-  <div id="log"></div>
-  <div id="info" class="info" class="hide"></div>
+    <div id="log"></div>
+    <div id="info" class="info" class="hide"></div>
+  </div>
   <script src="js/main.js"></script>
 </body>

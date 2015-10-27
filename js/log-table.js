@@ -2,6 +2,7 @@ var LogTable = function(container) {
 	this.container = container;
 	this.tableId = 'logList';
 	var logEntries = new LogEntries;
+	this.entryForm;
 
 	var div = document.getElementById(container);
 
@@ -19,7 +20,7 @@ var LogTable = function(container) {
 		dataset: {records: logEntries},
 	});
 
-	jQuery('#'+this.tableId).dynatable().on('click', 'tr', function(ev) {
+	jQuery('#'+this.tableId).dynatable().on('dblclick', 'tr', function(ev) {
 		var evtUuid;
 		for (var i=0 ; i<ev.currentTarget.childNodes.length; i++) {
 			var testUuid = ev.currentTarget.childNodes[i].innerText.match(/([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})/);
@@ -30,16 +31,13 @@ var LogTable = function(container) {
 			}
 		}
 
-		var entry;
-		for (var i=0; i<this.logEntries.length; i++) {
-			if (this.logEntries[i].uuid == evtUuid) {
-				entry = this.logEntries[i];
-				break;
-			}
-		}
+		var filtered = this.logEntries.filter(function(value) {
+			return value.uuid == evtUuid;
+		});
 
 		// TODO: put this guy into the entry form for editing; don't forgot now editing needs save new, overwrite, maybe delete?
-		console.log(entry);
+		console.log(filtered[0]);
+		this.entryForm.setEntry(filtered[0]);
 
 	}.bind(this));
 

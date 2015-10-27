@@ -2,8 +2,11 @@ body {
   font-family: Verdana, Arial, Helvetica, "Liberation Sans", sans-serif;
   color: #222;
   background: #fff;
+  margin: 8px;
 }
 
+#footer {
+}
 .hide {
   display: none;
 }

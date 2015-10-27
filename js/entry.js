@@ -26,12 +26,12 @@ Entry.prototype = {
 		},
 		band: {
 			niceName: "Band",
-			visible: false,
+			visible: true,
 			stringify: true,
 		},
 		mode: {
 			niceName: "Mode",
-			visible: false,
+			visible: true,
 			stringify: true,
 		},
 		startTime: {
@@ -131,6 +131,7 @@ Object.defineProperties(Entry.prototype, {
 						icon = 'img/icon-synced.png';
 						break;
 					case 'deleted':
+					case 'conflicting':
 						icon = 'img/icon-conflicting.png';
 						break;
 					case 'pending':

@@ -30,11 +30,8 @@ var LogFiler = function(filesystem, logTable, isSyncable) {
 			  	}.bind(this));
 		}
 		if (chrome.syncFileSystem.onServiceStatusChanged) {
-			chrome.syncFileSystem.onServiceStatusChanged.addListener(
-				function(detail) {
-					log('Service state updated: ' + detail.state + ': '
-				    	+ detail.description);
-				}.bind(this));
+			chrome.syncFileSystem.onServiceStatusChanged.addListener(this.showServiceStatus.bind(this));
+			chrome.syncFileSystem.getServiceStatus(this.showServiceStatus.bind(this));
 		}
 	}
 
@@ -43,6 +40,26 @@ var LogFiler = function(filesystem, logTable, isSyncable) {
 };
 
 LogFiler.prototype = {
+
+	showServiceStatus: function(detail) {
+		var state;
+		var description;
+
+		if (typeof  detail == 'string') {
+			state = detail;
+			description = 'initial state';
+		} else {
+			state = detail.state;
+			description = detail.description;
+		}
+		log('Service state updated: ' + state + ': '	+ description);
+		if (state == 'running') 
+			document.getElementById('fs-online').innerHTML = "On line";
+		else if (state == 'temporary_unavailable') 
+			document.getElementById('fs-online').innerHTML = "Off line";
+		else
+			document.getElementById('fs-online').innerHTML = state;
+	},
 
 	list: function(dir, detail) {
 		if (this.fetching)
@@ -76,15 +93,19 @@ LogFiler.prototype = {
 	},
 
 	load: function(entry) {
-		entry.file(function(file) {
+		entry.file(function(entry, file) {
 			var reader = new FileReader();
 			reader.readAsText(file, "utf-8");
-			reader.onload = function(ev) {
+			reader.onload = function(fileEntry, ev) {
 				var entry = new Entry(ev.target.result);
 				this.logTable.push(entry);
-				this.logTable.refresh();
-			}.bind(this);
-		}.bind(this), error);
+				chrome.syncFileSystem.getFileStatus(fileEntry, 
+					function(entry, fileStatus) {
+						entry.sync = fileStatus;
+						this.logTable.refresh();
+					}.bind(this, entry));
+			}.bind(this, entry);
+		}.bind(this, entry), error);
 	},
 
 	open: function(entry) {

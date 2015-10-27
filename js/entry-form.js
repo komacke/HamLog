@@ -5,18 +5,51 @@ var EntryForm = function(filesystem, container, logFiler, logTable) {
 	this.container = document.getElementById(container);
  	this.logFiler = logFiler;
 	this.logTable = logTable;
-	this.entry = new Entry;
 
 	this.table = createElement('table', {class: 'entryForm'});
 	this.table.appendChild(this.buildHeaders());
 	this.inputRow = this.buildInput();
 	this.table.appendChild(this.inputRow);
 
-	var button = createElement('button', {id: 'saveEntry', innerText: "Save"});
-	button.addEventListener('click', this.save.bind(this));
+	var dia = createElement('dialog', {id: 'new-save'});
+	dia.appendChild(createElement('p', {innerText: "save as new or overwrite?"}));
+	var newSaveNew = createElement('button', {id: 'new-save-new', innerText: "New"});
+	newSaveNew.addEventListener('click', 
+		function() {
+			//reset uuid
+			this.save();
+			document.getElementById('new-save').close();
+		}.bind(this)
+	);
+	var newSaveOverwrite = createElement('button', {id: 'new-save-overwrite', innerText: "Overwrite"});
+	newSaveOverwrite.addEventListener('click',
+		function() {
+			this.save();
+			document.getElementById('new-save').close();
+		}.bind(this)
+	);
+	dia.appendChild(newSaveNew);
+	dia.appendChild(newSaveOverwrite);
+
+
+	var buttonSave = createElement('button', {id: 'saveEntry', innerText: "Save"});
+	buttonSave.addEventListener('click', 
+		function() {
+			if(this.isNewEntry)
+				this.save();
+			else
+				document.getElementById('new-save').showModal();
+		}
+	.bind(this));
+	var buttonClear = createElement('button', {id: 'clearEntry', innerText: "Clear"});
+	buttonClear.addEventListener('click', this.clearEntry.bind(this));
 
 	this.container.appendChild(this.table);
-	this.container.appendChild(button);
+	this.container.appendChild(buttonSave);
+	this.container.appendChild(buttonClear);
+	this.container.appendChild(dia);
+
+	this.clearEntry();
 
 	this.setListeners();
 }
@@ -38,8 +71,27 @@ EntryForm.prototype = {
 
 		for (var key in Entry.prototype.structure) {
 			if (Entry.prototype.structure[key].visible == true) {
-				var input = createElement('input', {type: "text", id: key});
-				row.appendChild(createElement('td')).appendChild(input);
+				var el;
+				switch (key) {
+					case 'band':
+						el = createElement('select', {id: key});
+						el.appendChild(createElement('option', {value: '', innerText: ''}));
+						for (var band in Lookup.freqBandMode) {
+							el.appendChild(createElement('option', {value: band, innerText: band}));
+						}
+						break;
+					case 'mode':
+						el = createElement('select', {id: key});
+						el.appendChild(createElement('option', {value: '', innerText: ''}));
+						for (var i in Lookup.modes) {
+							el.appendChild(createElement('option', {value: Lookup.modes[i], innerText: Lookup.modes[i]}));
+						}
+						break;
+					default:
+						el = createElement('input', {type: "text", id: key});
+						break;
+				}
+				row.appendChild(createElement('td')).appendChild(el);
 			}
 		}
 
@@ -52,20 +104,23 @@ EntryForm.prototype = {
 				document.getElementById(key).addEventListener('blur', function(key, ev) {
 					this.entry[key] = ev.target.value;
 					ev.target.value = this.entry[key];
+					switch (key) {
+						case 'freq':
+							document.getElementById('band').value = this.entry.band;
+							document.getElementById('mode').value = this.entry.mode;
+							break;
+						default:
+							break;
+					}
 		  		}.bind(this, key));
 		  	}
 		 }
 		 return;
 	},
 
-	clearInput: function() {
-		for (var key in Entry.prototype.structure) {
-			if (Entry.prototype.structure[key].visible == true)
-				document.getElementById(key).value = '';
-		}
-
-		this.entry = new Entry;
-
+	clearEntry: function() {
+		this.setEntry(new Entry());
+		this.isNewEntry = true;
 	},
 
 	getEntry: function() {
@@ -82,12 +137,22 @@ EntryForm.prototype = {
 		return currEntry;
 	},
 
+	setEntry: function(entry) {
+		for (var key in Entry.prototype.structure) {
+			if (Entry.prototype.structure[key].visible == true)
+				document.getElementById(key).value = entry[key];
+		}
+		this.isNewEntry = false;
+		this.entry = entry;
+		document.getElementById('myCall').focus();
+	},
+
 	onSave: function(entry, size, currEntry) {
 		log('File saved: ' + size + ' bytes');
 		currEntry.sync = 'pending';
 		this.logTable.push(currEntry);
 		this.logTable.refresh();
-		this.clearInput();
+		this.clearEntry();
 	},
 
 	save: function() {
