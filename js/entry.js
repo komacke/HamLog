@@ -9,6 +9,11 @@ Entry.prototype = {
 			visible: false,
 			stringify: false,
 		},
+		logName: {
+			niceName: "Log Name",
+			visible: true,
+			stringify: true,
+		},
 		myCall: {
 			niceName: "My Call",
 			visible: true,
@@ -46,11 +51,6 @@ Entry.prototype = {
 		},
 		uuid: {
 			niceName: "UUID",
-			visible: false,
-			stringify: true,
-		},
-		logName: {
-			niceName: "Log Name",
 			visible: false,
 			stringify: true,
 		},

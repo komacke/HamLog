@@ -1,0 +1,3 @@
+- set mycall outside entry form
+- set log and myCall as setting and pre-load entry-form
+- fix time save/restore bug

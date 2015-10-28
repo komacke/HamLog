@@ -7,7 +7,10 @@ document.addEventListener(
         function() {
             if (supportsSyncFileSystem) {
                 openSyncableFileSystem();
-                window.onresize = function(event) { setLogListContainerHeight(); };
+                window.onresize = function(event) { 
+                  setLogListContainerHeight(); 
+                  setHeaderWidth();
+                };
             } else {
               //openTemporaryFileSystem();
                 document.getElementById('fs-online').innerHTML = "No filesystem!";
@@ -25,8 +28,9 @@ function onFileSystemOpened(fs, isSyncable) {
   var entryForm = new EntryForm(fs, 'entryFormContainer', logFiler, logTable);
   logTable.entryForm = entryForm;
 
-  showLog('currentLog', entryForm.currLogName);
+  showLog('currentLog', entryForm);
   setLogListContainerHeight();
+  setHeaderWidth();
 }
 
 function openTemporaryFileSystem() {
@@ -38,14 +42,19 @@ function openTemporaryFileSystem() {
                           error.bind(null, 'requestFileSystem'));
 }
 
-function showLog(container, currLogName) {
-  document.getElementById(container).innerHTML = "Current log: " + currLogName;
+function showLog(container, entryForm) {
+  document.getElementById(container).innerHTML = "Current log: " + entryForm.currLogName + "; Station Call: " + entryForm.currMyCall;
 }
 
 function setLogListContainerHeight() {
   var otherHeight = jQuery('#header').outerHeight(true) + jQuery('#footer').outerHeight(true);
   var chromeAppTweak = 7 + 8;
   document.getElementById('logListContainer').style.height = (window.innerHeight - otherHeight) - chromeAppTweak + 'px';
+}
+
+function setHeaderWidth() {
+  var chromeAppTweak = 16;
+  document.getElementById('entryFormContainer').style.width = window.innerWidth - chromeAppTweak + 'px';
 }
 
 function openSyncableFileSystem() {

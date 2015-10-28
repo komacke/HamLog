@@ -19,6 +19,8 @@ var LogTable = function(container) {
 		features: {pushState: false},
 		dataset: {records: logEntries},
 	});
+	
+	jQuery('#'+this.tableId).dynatable().data('dynatable').sorts.add('startTime', 0);
 
 	jQuery('#'+this.tableId).dynatable().on('dblclick', 'tr', function(ev) {
 		var evtUuid;

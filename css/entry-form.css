@@ -10,3 +10,10 @@
 #logListContainer {
 	overflow-y: auto;
 }
+
+.entryForm input {
+	width: 100%;
+}
+.entryFormHeader {
+	padding-right: 5px;
+}

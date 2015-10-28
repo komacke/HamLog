@@ -1,5 +1,6 @@
 var EntryForm = function(filesystem, container, logFiler, logTable) {
 	this.currLogName = "Full Log";
+	this.currMyCall = 'n9dk';
 
 	this.filesystem = filesystem;
 	this.container = document.getElementById(container);
@@ -91,7 +92,7 @@ EntryForm.prototype = {
 						el = createElement('input', {type: "text", id: key});
 						break;
 				}
-				row.appendChild(createElement('td')).appendChild(el);
+				row.appendChild(createElement('td', {class: "entryFormHeader"})).appendChild(el);
 			}
 		}
 
@@ -119,7 +120,10 @@ EntryForm.prototype = {
 	},
 
 	clearEntry: function() {
-		this.setEntry(new Entry());
+		entry = new Entry;
+		entry.logName = this.currLogName;
+		entry.myCall = this.currMyCall;
+		this.setEntry(entry);
 		this.isNewEntry = true;
 	},
 
@@ -144,7 +148,7 @@ EntryForm.prototype = {
 		}
 		this.isNewEntry = false;
 		this.entry = entry;
-		document.getElementById('myCall').focus();
+		document.getElementById('contactCall').focus();
 	},
 
 	onSave: function(entry, size, currEntry) {
@@ -160,7 +164,6 @@ EntryForm.prototype = {
     
 		this.currEntry = this.getEntry();
 //	this.currEntry.uuid = uuid.v4();
-		this.currEntry.logName = this.currLogName;
 	  	var path = this.currEntry.makeFilename();
 	  	log('Saving to:' + path);
 
