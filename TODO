@@ -1,3 +1,4 @@
-- set mycall outside entry form
-- set log and myCall as setting and pre-load entry-form
+- set log and myCall as setting
 - fix time save/restore bug
+- shortcuts for save and clear
+- nice formatting
